@@ -32,13 +32,13 @@ function runIntegTests() {
       .catch();
 
     client.movies
-      .getMovieQuotesById("5cd95395de30eff6ebccde5c")
+      .getMovieQuotesById("5cd95395de30eff6ebccde5b")
       .then((movie) => {
         console.log(movie);
       })
       .catch();
 
-    client.movies.getMovieByName("The Unexpected Journey").then((movie) => {
+    client.movies.getMovieQuotesById("5cd95395de30eff6ebccde5c").then((movie) => {
       console.log(movie);
     });
   }
