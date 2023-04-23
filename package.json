@@ -1,0 +1,38 @@
+{
+  "name": "@maccrabtree/maccrab-lotr-sdk",
+  "version": "0.1.20",
+  "description": "",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "npx ts-node tst/index.ts",
+    "build": "rm -rf dist && microbundle --tsconfig tsconfig.json --no-sourcemap",
+    "docs": "typedoc --out docs src",
+    "prettier-format": "prettier --config .prettierrc --write 'src/**/*.ts'",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["onering", "viggo mortenson", "samwise", "lotr"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "microbundle": "^0.15.1",
+    "prettier": "^2.8.7",
+    "typedoc": "^0.24.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "isomorphic-unfetch": "^4.0.2",
+    "typedoc-plugin-missing-exports": "^2.0.0"
+  },
+  "exports": {
+    "require": "./dist/index.js",
+    "default": "./dist/index.modern.js"
+  },
+  "files": [
+    "dist",
+    "docs"
+  ]
+}
