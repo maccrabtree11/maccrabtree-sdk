@@ -2,32 +2,37 @@ I had a fun time thinking this one through! What I found as I went deeper and de
 
 
 
-##High-Level
-Tried to stick to classic nodey/typescript. The endpoints are organized into separate resource folders. 
+## High-Level Construction
+I tried to stick to classic node-y/typescript. The endpoints are organized into separate resource folders. 
 Based off of movies and quotes you can see how we'd extend out types to the other endpoints.
 
 The main client library also shows how we'd extend to additional API resources to call from.
-The base class, base, handles defining the generic typings that every request follows, as well as building out the request parameters string before hitting the endpoint.
+The base class, *Base*, handles defining the generic typings that every request follows, as well as building out the request parameters string before hitting the endpoint.
 
+
+The SDK itself is a library built out as a configured Client. 
 You'll notice that aside from the bearer token (in a perfect world: obtained from a secrets manager), base url is an option. I wanted to leave the door open for dependency injection/spinning up a localhost/mock/what have you. Didn't get to it for time constraints but that's the idea.
 
 
+## APIs themselves
+There is some mirroring of the resources/endpoints, but I also wanted to show how the base classes, and specifically Options object opens the door to more of the syntactic sugar/access-based calls as would make sense for the consumer of these APIs. Example: GetMovieByName. By using the mongodb search power the API gives us, I made GetMovieByName just a wrapper for GetMovies with a Name="" list, which is awesome in that there's no extra parsing or more client side work and maintainability. I thought of generating 10 of these (things like GetMoviesWithBoxOfficeGreaterThan(xxx), GetQuotesFromCharacterY). But that would just be showing off, right? :) 
+More of these abstractions would definitely be helpful to the average SDK user (GetCharacterName, GetMovieAttributeY). 
 
 
 
 
 
 
-##Testing
+## Testing
 Aside from manual tests, and creating a few index files to play around (left in tst/index.ts as a sample of how to call things), I pulled in jasmine to write some integration style tests, runnable with npm run test.
 
 As mentioned in the high-level, ideally some DI could come into play to decouple from needing the real endpoint to test against data. Could've done mock data, or localhost, many options, that I didn't get time to explore from timeboxing myself.
 
 
 
-##Considered, not done for time
+## Considered, not done for time
 * Adding in a lot more validation. Both on parameters (things like ID in the right shape, limit,offset,page are reasonable and defined), and on the response types and error codes. 
-* Right now the error from the API itself is surfaced. I myself love it when an SDK surfaces more helpful errors and figures out things that can go wrong beforehand, but there's something to be said about the control that leaving this to the consumer has
+* Right now the error from the API itself is surfaced. I myself love it when an SDK surfaces more helpful errors and figures out things that can go wrong beforehand, but there's something to be said about the control that leaving this to the consumer also has in calling it wrong and handling it. 
 * A lot more abstraction/syntactic sugar APIs. I did the movies by name to show how well the GetOptions object works out at being reusable, but I had to stop myself from creating sooo many helpful ones. I had ideas like: Handling paging for the user (something like python yield pagination), hydrating the character names in the quotes, way more cute little "Get high grossing movies", etc. All cool things, all easy to do, just timeboxed off.
 * On the topic of limits/filters, urlRequestParams standard library appends things as key=value. I left some skeleton code for this being a real operator instead of =, which turned into a bunch of string manipulation and a timesync. Small tweak, and that gives us boxOffice<10 type params as well. Good idea, worth doing, timeboxed off
 * Lastly, I know there's a cuter way to do the "filterableParams". I believe it's keyof, but I couldn't quite get the syntax right, and instead spent that time on unit tests. I don't love that it creates 2 lists of properties to maintain either :)
