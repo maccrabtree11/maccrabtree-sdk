@@ -24,7 +24,7 @@ npm clean -> when you're done!
 
 
 ## Setup using npm and not from this repo
-npm install maccrabtree-sdk
+npm install maccrab-lotr-sdk
 
 ### Include the SDK in your index.ts
 import { OneRingSdk } from 'maccrabtree-sdk';
