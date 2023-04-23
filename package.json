@@ -1,6 +1,6 @@
 {
-  "name": "@maccrabtree/maccrab-lotr-sdk",
-  "version": "0.1.20",
+  "name": "maccrab-lotr-sdk",
+  "version": "0.1.5",
   "description": "",
   "source": "src/index.ts",
   "main": "dist/index.js",
